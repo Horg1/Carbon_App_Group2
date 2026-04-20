@@ -1,0 +1,36 @@
+# ------------------------------------------------------------
+# .gitignore = files/folders Git should NOT upload to the repo.
+# Reason: these are either auto-generated, machine-specific,
+# huge, or may contain secrets. Everyone generates them locally.
+# ------------------------------------------------------------
+
+# ---------- Python ----------
+# Python cache files (auto-generated)
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments (local Python install + packages)
+# Each developer creates their own venv locally.
+.venv/
+venv/
+
+# Environment variables / secrets (API keys, passwords)
+# Never commit this file.
+.env
+
+# ---------- Frontend / Node ----------
+# Installed packages (huge). Recreate with npm install.
+node_modules/
+
+# Build output (auto-generated). Recreate with npm run build.
+dist/
+build/
+
+# ---------- OS / Editor ----------
+# macOS metadata files
+.DS_Store
+
+# VS Code settings (optional)
+# Ignore if you don't want editor settings in the repo.
+.vscode/
