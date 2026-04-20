@@ -1,3 +1,7 @@
+.ca-hero--calculator .hero-overlay {
+  background: rgba(12, 32, 28, 0.2);
+}
+
 :root{
   --surface: transparent;
   --card: #ffffff;
