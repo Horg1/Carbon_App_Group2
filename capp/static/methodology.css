@@ -1,5 +1,9 @@
 .section_body_methodology { padding-bottom: 60px; }
 
+.ca-hero .hero-overlay {
+  background: rgba(6, 33, 45, 0.88);
+}
+
 .meth-intro {
   padding: 48px 0 16px;
 }
