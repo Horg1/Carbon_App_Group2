@@ -8,10 +8,14 @@
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <h1><span class="text-logo">SeaScope</span></h1>
-    <p>A modern platform to calculate and understand the carbon footprint of seafood transport. Measure today, improve tomorrow.</p>
+    <p>A modern platform to calculate and understand the carbon footprint of seafood transport.</p>
     <div class="hero-buttons">
-      <a href="{{ url_for('users.register') }}" class="btn-hero-primary">Get Started</a>
-      <a href="{{ url_for('users.login') }}" class="btn-hero-secondary">Login</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('carbon_app.carbon_app_home') }}" class="btn-hero-primary">Go to Carbon App</a>
+      {% else %}
+        <a href="{{ url_for('users.register') }}" class="btn-hero-primary">Get Started</a>
+        <a href="{{ url_for('users.login') }}" class="btn-hero-secondary">Login</a>
+      {% endif %}
     </div>
   </div>
 </section>
