@@ -1,0 +1,202 @@
+:root {
+  --bg: #f4f8f7;
+  --surface: transparent;
+  --card: #ffffff;
+  --border: #c9ddd4;
+  --text: #1c2b26;
+  --muted: #587067;
+  --accent: #0f766e;
+  --accent-2: #1d4ed8;
+  --accent-soft: #34d399;
+  --shadow: 0 12px 30px rgba(15, 35, 30, 0.08);
+}
+
+p { margin: 10px 0; font-size: 18px; color: var(--text); }
+
+/* ── Hero ── */
+.section_header_home {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 32, 28, 0.45);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  color: #f7fffb;
+  max-width: 700px;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 64px;
+  margin-bottom: 16px;
+  font-family: 'Playfair Display', serif;
+}
+
+.hero-content p {
+  color: #d4ede6;
+  font-size: 20px;
+  margin-bottom: 32px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+  padding: 14px 32px;
+  background: #1fa99e;
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  transition: opacity 150ms ease;
+}
+
+.btn-hero-primary:hover { opacity: 0.88; color: #fff; text-decoration: none; }
+
+.btn-hero-secondary {
+  padding: 14px 32px;
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  transition: background 150ms ease;
+}
+
+.btn-hero-secondary:hover { background: rgba(255,255,255,0.15); color: #fff; text-decoration: none; }
+
+/* ── Feature cards ── */
+.section_features { padding: 60px 0; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.feature-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 36px;
+  box-shadow: var(--shadow);
+}
+
+.feature-card-dark {
+  background: #1c2b26;
+  color: #f7fffb;
+}
+
+.feature-card-dark p { color: #a8c9bc; }
+
+.feature-link {
+  color: var(--accent-soft);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.feature-link:hover { text-decoration: underline; }
+
+/* ── Team ── */
+.section_developers { padding: 60px 0; }
+
+.team-intro { margin-bottom: 36px; }
+.team-intro h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; }
+.team-intro p { font-size: 15px; color: var(--muted); }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.team-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(15, 35, 30, 0.12);
+}
+
+.team-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 0; }
+.team-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+.team-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border);
+}
+
+.btn_developers {
+  margin-top: 4px;
+  padding: 7px 18px;
+  color: var(--text);
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 180ms ease;
+}
+
+.btn_developers:hover {
+  color: #fff;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 { font-size: 42px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .team-grid { grid-template-columns: 1fr; }
+}
