@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="section_header_home user-auth-page">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="{{ url_for('static', filename='img/cc87dbd7-a00a-41b5-8768-2ac640d25fd7.mp4') }}" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="container" style="position:relative; z-index:2;">
+    <div class="header_home">
+      <div class="hero-content user-auth-card">
+        <h1 class="auth-title"><span class="text-logo">Sign in</span></h1>
+        <form method="POST" action="">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Welcome back</legend>
+
+            <div class="form-group mb-3">
+              {{ form.email.label(class="form-control-label") }}
+              {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+
+            <div class="form-group mb-3">
+              {{ form.password.label(class="form-control-label") }}
+              {% if form.password.errors %}
+                {{ form.password(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.password(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+
+          <div class="form-group mt-3">
+            {{ form.submit(class="btn btn-primary") }}
+          </div>
+        </form>
+          <p class="auth-redirect">Don't have an account? <a href="{{ url_for('users.register') }}">Register here</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Header -->
+<section class="ca-hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="{{ url_for('static', filename='img/cc87dbd7-a00a-41b5-8768-2ac640d25fd7.mp4') }}" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="ca-hero-content">
+    <h1><span class="ca-hero-title">Methodology</span></h1>
+    <p class="ca-hero-sub">How we calculate seafood transport emissions.</p>
+  </div>
+</section>
+
+<section class="section_body_methodology">
+  <div class="container">
+
+    <!-- Intro -->
+    <div class="meth-intro">
+      <p>
+        This page explains the logic behind our seafood transport emission calculator in a
+        transparent and simplified way. We combine route distance, cargo weight, and
+        freight emission factors from the GLEC framework to estimate total CO₂e emissions
+        per shipment and per kilogram of product.
+      </p>
+      <p>
+        The detailed methodology is available in our report, while this page
+        highlights the formulas and baseline values used in the app itself.
+      </p>
+      <div class="hero-buttons" style="margin-top:24px; justify-content:flex-start;">
+        <a href="#link to paper" class="btn-nav">Paper</a>
+        <a href="{{ url_for('carbon_app.carbon_app_home') }}" class="btn-nav">Carbon App</a>
+      </div>
+    </div>
+
+    <!-- Core Formulas -->
+    <div class="meth-section-title">
+      <h2><span class="text-logo">Core formulas</span></h2>
+      <p>How we calculate and estimate emissions:</p>
+    </div>
+
+    <div class="meth-grid">
+      <div class="meth-card">
+        <h4>1. Freight emissions model</h4>
+        <p>For all transport modes:</p>
+        \[ CO_2e = w \cdot d \cdot ef \]
+        <ul>
+          <li>\(CO_2e\): total emissions for a shipment (kg CO₂e)</li>
+          <li>\(w\): cargo weight (tonnes)</li>
+          <li>\(d\): route distance (km)</li>
+          <li>\(ef\): emission factor (kg CO₂e / tonne km)</li>
+        </ul>
+      </div>
+      <div class="meth-card">
+        <h4>2. Emissions per kg of product</h4>
+        <p>To get the footprint per kilogram of seafood:</p>
+        \[ CO_2e/kg = \frac{w \cdot d \cdot ef}{w_{kg}} \]
+        <ul>
+          <li>\(w_{kg}\): cargo weight in kilograms</li>
+          <li>Allows direct comparison across routes and transport modes</li>
+        </ul>
+      </div>
+      <div class="meth-card">
+        <h4>3. Total footprint across shipments</h4>
+        <p>Summed over multiple shipments in a period:</p>
+        \[ CO_{2e,\text{total}} = \sum_{i=1}^{n} w_i \cdot d_i \cdot ef_i \]
+        <ul>
+          <li>\(n\): number of shipments logged</li>
+          <li>Each shipment can have its own transport mode, fuel type, and route</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Reference Values -->
+    <div class="meth-section-title">
+      <h2><span class="text-logo">Reference values used in the app</span></h2>
+      <p>
+        The following emission factors are used in the calculator, sourced from the
+        GLEC Framework (Smart Freight Centre) and Climatiq. All values are in
+        kg CO₂e per tonne km.
+      </p>
+    </div>
+
+    <div class="meth-grid">
+      <div class="meth-card">
+        <h4>4. Road Freight — Truck</h4>
+        <p>Road freight is the most common mode for short and medium distance seafood distribution. Emissions vary significantly by fuel type (GLEC Framework, 2024):</p>
+        <ul>
+          <li>Diesel: <strong>0.096 kg CO₂e/tonne km</strong></li>
+          <li>LNG: <strong>0.080 kg CO₂e/tonne km</strong></li>
+          <li>HVO (Biodiesel): <strong>0.010 kg CO₂e/tonne km</strong></li>
+          <li>Electric: <strong>0.000 kg CO₂e/tonne km</strong></li>
+        </ul>
+      </div>
+      <div class="meth-card">
+        <h4>5. Air Freight — Cargo Plane</h4>
+        <p>Air freight is the most carbon intensive mode but is used for high value and time sensitive seafood exports. Emissions depend on fuel type (GLEC Framework, 2024):</p>
+        <ul>
+          <li>Jet Fuel (Kerosene): <strong>0.800 kg CO₂e/tonne km</strong></li>
+          <li>SAF (Sustainable Aviation Fuel): <strong>0.160 kg CO₂e/tonne km</strong></li>
+        </ul>
+      </div>
+      <div class="meth-card">
+        <h4>6. Sea Freight — Cargo Ship</h4>
+        <p>Sea freight is by far the lowest emission mode per tonne km, making it the preferred choice for long distance bulk seafood exports (Climatiq / GLEC Framework, 2024):</p>
+        <ul>
+          <li>Diesel / HFO: <strong>0.016 kg CO₂e/tonne km</strong></li>
+          <li>LNG: <strong>0.013 kg CO₂e/tonne km</strong></li>
+          <li>Electric / Zero Emission: <strong>0.000 kg CO₂e/tonne km</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<section class="section_header_carbon_app">
+  <div class="container">
+    <div class="header_carbon_app">
+      <div class="box">
+        <h1 style="font-size:55px;"><span class="text-logo">Log a Shipment</span></h1>
+        <p>Select a transport mode below to log a seafood shipment route and calculate its CO₂e emissions.</p>
+          <div class="new-entry-btn-group">
+            <a href="{{ url_for('carbon_app.new_entry_truck') }}" class="new-entry-btn">
+              <i class="fa-solid fa-truck"></i><br>Truck
+            </a>
+            <a href="{{ url_for('carbon_app.new_entry_plane') }}" class="new-entry-btn">
+              <i class="fa-solid fa-plane"></i><br>Cargo Plane
+            </a>
+            <a href="{{ url_for('carbon_app.new_entry_boat') }}" class="new-entry-btn">
+              <i class="fa-solid fa-ship"></i><br>Cargo Ship
+            </a>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

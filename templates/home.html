@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="section_header_home">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="{{ url_for('static', filename='img/cc87dbd7-a00a-41b5-8768-2ac640d25fd7.mp4') }}" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1><span class="text-logo">SeaScope</span></h1>
+    <p>A modern platform to calculate and understand the carbon footprint of seafood transport. Measure today, improve tomorrow.</p>
+    <div class="hero-buttons">
+      <a href="{{ url_for('users.register') }}" class="btn-hero-primary">Get Started</a>
+      <a href="{{ url_for('users.login') }}" class="btn-hero-secondary">Login</a>
+    </div>
+  </div>
+</section>
+
+<section class="section_features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>What We Do</h3>
+        <p>We help seafood producers and exporters assess, visualize, and reduce their transport emissions through data-driven analysis.</p>
+      </div>
+      <div class="feature-card feature-card-dark">
+        <h3>What's Your Impact?</h3>
+        <p>Discover how your transport choices influence carbon emissions. Every route and kilogram counts.</p>
+        <a href="{{ url_for('carbon_app.carbon_app_home') }}" class="feature-link">Calculate Emissions →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

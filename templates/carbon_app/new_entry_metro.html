@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="section_header_carbon_app">
+  <div class="container">
+    <div class="entry-form-card">
+      <div class="entry-form-header">
+        <i class="fa-solid fa-train-subway entry-form-icon"></i>
+        <h2>Metro Entry</h2>
+        <p>Log your metro journey to calculate its carbon footprint.</p>
+      </div>
+      <form method="POST" action="">
+        {{ form.csrf_token }}
+        <div class="entry-form-group">
+          {{ form.kms.label(class="entry-form-label") }}
+          {{ form.kms(class="entry-form-input", placeholder="e.g. 10") }}
+        </div>
+        <div class="entry-form-group">
+          {{ form.fuel_type.label(class="entry-form-label") }}
+          {{ form.fuel_type(class="entry-form-select") }}
+        </div>
+        <div class="entry-form-group">
+          {{ form.submit(class="entry-form-submit") }}
+        </div>
+      </form>
+      <div class="entry-form-back">
+        <a href="{{ url_for('carbon_app.new_entry') }}">← Back to transport selection</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

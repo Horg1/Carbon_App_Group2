@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="ca-hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="{{ url_for('static', filename='img/cc87dbd7-a00a-41b5-8768-2ac640d25fd7.mp4') }}" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="ca-hero-content">
+    <h1><span class="ca-hero-title">Our Team</span></h1>
+    <p class="ca-hero-sub">The people behind SeaScope.</p>
+  </div>
+</section>
+
+<section class="section_developers">
+  <div class="container">
+    <div class="team-intro">
+      <p>We are eight economics students from NHH Bergen with a shared interest in sustainability and data. We built SeaScope to give the Norwegian seafood industry a simple, transparent tool for understanding and reducing the carbon footprint of their transport operations.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/Spazo.png') }}" alt="Andrej Spasojevic">
+        <h3>Andrej Spasojevic</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/andrej-spasojevic/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/Kristian-Buvik.jpg') }}" alt="Kristian Buvik">
+        <h3>Kristian Buvik</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/kristian-buvik-96564a2a3/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/lorentz-mowinckel.jpg') }}" alt="Lorentz Mowinckel">
+        <h3>Lorentz Mowinckel</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/lorentz-mowinckel/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/nicolai-mowinckel-haukedal.jpg') }}" alt="Nicolai Mowinckel Haukedal">
+        <h3>Nicolai Mowinckel Haukedal</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/nicolai-mowinckel-haukedal/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/magnus-skredderberget.jpg') }}" alt="Magnus Skredderberget">
+        <h3>Magnus Skredderberget</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://no.linkedin.com/in/magnus-auestad-skredderberget-830ab2222" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/peder-horgen.jpg') }}" alt="Peder Horgen">
+        <h3>Peder Horgen</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/peder-horgen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/per-magnus-reitan.jpg') }}" alt="Per Magnus Reitan">
+        <h3>Per Magnus Reitan</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/per-magnus-reitan-6682102a7/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+      <div class="team-card">
+        <img class="team-photo" src="{{ url_for('static', filename='img/team/Sondre.jpg') }}" alt="Sondre Nøss Rostrup">
+        <h3>Sondre Nøss Rostrup</h3>
+        <p>Bachelor in Economics and Business Administration at NHH, Bergen</p>
+        <a class="btn_developers" href="https://www.linkedin.com/in/sondre-rostrup/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

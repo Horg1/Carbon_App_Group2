@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Video Header -->
+<section class="ca-hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="{{ url_for('static', filename='img/cc87dbd7-a00a-41b5-8768-2ac640d25fd7.mp4') }}" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="ca-hero-content">
+        <h1><span class="ca-hero-title">Carbon App Calculator</span></h1>
+        <p class="ca-hero-sub">Measure and track the transport emissions of your seafood shipments.</p>
+    </div>
+</section>
+
+<!-- Actions -->
+<section class="ca-actions-section">
+    <div class="container">
+        <div class="hero-buttons" style="justify-content:center;">
+            <a href="{{url_for('methodology.methodology_home')}}" class="btn-nav">Methodology</a>
+            <a href="{{url_for('carbon_app.new_entry')}}" class="btn-nav">New entry</a>
+            <a href="{{url_for('carbon_app.your_data')}}" class="btn-nav">Your emissions</a>
+        </div>
+    </div>
+</section>
+
+<!-- Steps -->
+<section class="ca-steps-section">
+    <div class="container">
+        <div class="ca-steps">
+            <div class="ca-step">
+                <div class="ca-step-number">1</div>
+                <p>Sign in or register for a free account.</p>
+            </div>
+            <div class="ca-step">
+                <div class="ca-step-number">2</div>
+                <p>Click <strong>New Entry</strong> and select your mode of transport.</p>
+            </div>
+            <div class="ca-step">
+                <div class="ca-step-number">3</div>
+                <p>Enter the distance, fuel type, and kg of seafood transported, then submit.</p>
+            </div>
+            <div class="ca-step">
+                <div class="ca-step-number">4</div>
+                <p>Visit <strong>Your Emissions</strong> to review your logged shipments and emissions data.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

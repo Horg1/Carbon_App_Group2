@@ -1,0 +1,234 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<section class="section_header_carbon_app">
+  <div class="container">
+
+    <div class="your-data-header">
+      <div>
+        <h2>Shipment Log</h2>
+        <p>Showing your logged shipments from the last 30 days.</p>
+      </div>
+      <a href="{{ url_for('carbon_app.new_entry') }}" class="new-entry-btn" style="padding: 12px 24px; flex-direction: row; gap: 8px;">
+        <i class="fa-solid fa-plus"></i> New Entry
+      </a>
+    </div>
+
+    {% if entries %}
+    <div class="your-data-table-wrap">
+      <table class="your-data-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Transport</th>
+            <th>Fuel</th>
+            <th>Kilometers</th>
+            <th>Cargo (kg)</th>
+            <th>Total CO₂e (kg)</th>
+            <th>CO₂e per kg</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in entries %}
+          <tr>
+            <td>{{ entry.date.strftime("%d-%m-%Y") }}</td>
+            <td>{{ entry.transport }}</td>
+            <td>{{ entry.fuel }}</td>
+            <td>{{ entry.kms }}</td>
+            <td>{{ entry.seafood_kg }}</td>
+            <td><strong>{{ entry.total }}</strong></td>
+            <td>{{ "%.4f"|format(entry.total / entry.seafood_kg) if entry.seafood_kg > 0 else "N/A" }}</td>
+            <td>
+              <a href="{{ url_for('carbon_app.delete_emissions', entry_id=entry.id) }}" class="delete-btn">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% set total_kms = entries | sum(attribute='kms') %}
+        {% set total_cargo = entries | sum(attribute='seafood_kg') %}
+        {% set total_co2 = entries | sum(attribute='total') %}
+        <tfoot>
+          <tr>
+            <td colspan="3"><strong>Total</strong></td>
+            <td><strong>{{ "%.1f"|format(total_kms) }}</strong></td>
+            <td><strong>{{ "%.1f"|format(total_cargo) }}</strong></td>
+            <td><strong>{{ "%.2f"|format(total_co2) }}</strong></td>
+            <td><strong>{{ "%.4f"|format(total_co2 / total_cargo) if total_cargo > 0 else "N/A" }}</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    {% else %}
+    <div class="your-data-empty">
+      <i class="fa-solid fa-leaf"></i>
+      <p>No shipments logged in the last 30 days. <a href="{{ url_for('carbon_app.new_entry') }}">Log one now.</a></p>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+    <!-- Two Emissions Graph Section -->
+    <section class="two_emissions_graphs">
+        <div class="container">
+            <div class="box">
+                <canvas id="emissions_by_transport"></canvas>
+            </div>
+            <div class="box">
+                <canvas id="over_time_emissions"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Efficiency Graph Section -->
+    <section class="two_emissions_graphs">
+        <div class="container">
+            <div class="box">
+                <canvas id="efficiency_by_transport"></canvas>
+            </div>
+            <div class="box">
+                <canvas id="efficiency_over_time"></canvas>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+{% block javascript %}
+    <script>
+        // Emissions
+        let emission_transport_data = {{ emissions_by_transport | tojson }}
+
+        let emissions_by_transport_chart = new Chart(document.getElementById("emissions_by_transport"), {
+                type: 'pie',
+                data: {
+                labels: ['Truck', 'Plane', 'Ferry'],
+                    datasets: [{
+                        data: emission_transport_data,
+                        backgroundColor: ['#9ac2be', '#f2e3b6', '#f2c299',
+                            '#f2935c', '#5fd9cd', '#f2d95c', '#f2b84b', '#f27979' ],
+    
+                        borderWidth: 1,
+                        hoverBorderColor: "black",
+                        hoverBorderWidth: 2,
+                        hoverBackgroundColor: 'rgba(154, 245, 140)',
+                        pointHoverRadius: 5
+                    }],
+                },
+                options: {
+                        title: {
+                            display: true,
+                                text: "Emissions by type of transport (last 30 days)",
+                                    fontColor: "black",
+                                    fontSize: 20,
+                        },
+                        legend: {
+                            position: "right",
+                                labels: {
+                                fontColor: "black"
+                            },
+                            display: true,
+                        },
+    
+                        elements: {
+                            hitRadius: 3,
+                        }
+                }
+            })
+
+        over_time_emissions = {{over_time_emissions | tojson}}
+        labels = {{ dates_label | tojson}}
+
+        new Chart(document.getElementById("over_time_emissions"), {
+                type: "line",
+                data:
+                {
+                    labels: labels,
+                    datasets: [
+                        {
+                        label: "Daily Total CO₂e (kg)",                           
+                        data: over_time_emissions,
+                        fill: false,
+                        borderColor: '#5fd9cd',
+                        lineTension: 0.1
+                        }
+                ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "Daily Total CO₂e (last 30 days)",
+                        fontColor: "black",
+                        fontSize: 16,
+                    },
+                    scales: {
+                        yAxes: [{ scaleLabel: { display: true, labelString: "kg CO₂e" } }]
+                    }
+                }
+            });
+            
+        // Efficiency: CO₂e per kg by transport type (bar chart)
+        let efficiency_labels = {{ efficiency_transport_labels | tojson }}
+        let efficiency_values = {{ efficiency_transport_values | tojson }}
+
+        new Chart(document.getElementById("efficiency_by_transport"), {
+            type: 'bar',
+            data: {
+                labels: efficiency_labels,
+                datasets: [{
+                    label: "kg CO₂e per kg seafood",
+                    data: efficiency_values,
+                    backgroundColor: ['#9ac2be', '#f2e3b6', '#f2c299'],
+                    borderWidth: 1,
+                    hoverBorderColor: "black",
+                    hoverBorderWidth: 2,
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "CO₂e per kg Seafood by Transport (last 30 days)",
+                    fontColor: "black",
+                    fontSize: 16,
+                },
+                legend: { display: false },
+                scales: {
+                    yAxes: [{ scaleLabel: { display: true, labelString: "kg CO₂e per kg seafood" } }]
+                }
+            }
+        });
+
+        // Efficiency over time (line chart)
+        let over_time_efficiency = {{ over_time_efficiency | tojson }}
+
+        new Chart(document.getElementById("efficiency_over_time"), {
+            type: "line",
+            data: {
+                labels: {{ dates_label | tojson }},
+                datasets: [{
+                    label: "kg CO₂e per kg seafood",
+                    data: over_time_efficiency,
+                    fill: false,
+                    borderColor: '#f2d95c',
+                    lineTension: 0.1
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "CO₂e per kg Seafood Over Time (last 30 days)",
+                    fontColor: "black",
+                    fontSize: 16,
+                },
+                scales: {
+                    yAxes: [{ scaleLabel: { display: true, labelString: "kg CO₂e per kg seafood" } }]
+                }
+            }
+        });
+
+        </script>
+{% endblock %}
