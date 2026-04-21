@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 from capp import db
 from capp.models import Transport
 from datetime import timedelta, datetime
-from capp.carbon_app.forms import BusForm, CarForm, BoatForm, PlaneForm, MetroForm, TrainForm, TruckForm
+from capp.carbon_app.forms import BoatForm, PlaneForm, TruckForm
 
 carbon_app = Blueprint('carbon_app', __name__)
 
@@ -12,29 +12,6 @@ efco2_freight = {
     'Plane': {'Jet Fuel': 0.800, 'SAF': 0.160},
     'Ferry': {'Diesel': 0.016, 'LNG': 0.013, 'Electric': 0.000}
 }
-
-efco2={'Bus':{'Diesel':0.10231,'CNG':0.08,'Petrol':0.10231,'No Fossil Fuel':0},
-    'Car':{'Petrol':0.18592,'Diesel':0.16453,'No Fossil Fuel':0},
-    'Plane':{'Petrol':0.24298},
-    'Ferry':{'Diesel':0.11131, 'CNG':0.1131, 'No Fossil Fuel':0},
-    'Metro':{'No Fossil Fuel':0.00407},
-    'Train':{'Diesel':0.04110, 'No Fossil Fuel':0.00410},
-    'Motorbike':{'Petrol':0.09816,'No Fossil Fuel':0},
-    'Scooter':{'No Fossil Fuel':0},
-    'Bicycle':{'No Fossil Fuel':0},
-    'Walk':{'No Fossil Fuel':0},
-    'Truck':{'Diesel':0.20000,'No Fossil Fuel':0}}
-efch4={'Bus':{'Diesel':2e-5,'CNG':2.5e-3,'Petrol':2e-5,'No Fossil Fuel':0},
-    'Car':{'Petrol':3.1e-4,'Diesel':3e-6,'No Fossil Fuel':0},
-    'Plane':{'Petrol':1.1e-4},
-    'Ferry':{'Diesel':3e-5, 'CNG':3e-5,'No Fossil Fuel':0},
-    'Metro':{'No Fossil Fuel':0},
-    'Train':{'Diesel':1e-5, 'No Fossil Fuel':0},
-    'Motorbike':{'Petrol':2.1e-3,'No Fossil Fuel':0},
-    'Scooter':{'No Fossil Fuel':0},
-    'Bicycle':{'No Fossil Fuel':0},
-    'Walk':{'No Fossil Fuel':0},
-    'Truck':{'Diesel':3e-5,'No Fossil Fuel':0}}
 
 
 @carbon_app.route('/carbon_app')
@@ -47,52 +24,7 @@ def new_entry():
     return render_template('carbon_app/new_entry.html', title='new_entry')
 
 
-# New-entry form functions - we have one for each transport type
-@carbon_app.route('/carbon_app/new_entry_bus', methods=['GET','POST'])
-@login_required
-def new_entry_bus():
-    form = BusForm()
-    if form.validate_on_submit():
-        kms = form.kms.data
-        fuel = form.fuel_type.data
-        transport = 'Bus'
-
-        co2 = float(kms) * efco2[transport][fuel]
-        ch4 = float(kms) * efch4[transport][fuel]
-        total = co2+ch4
-
-        co2 = float("{:.2f}".format(co2))
-        ch4 = float("{:.2f}".format(ch4))
-        total = float("{:.2f}".format(total))
-
-        emissions = Transport(kms=kms, transport=transport, fuel=fuel, co2=co2, ch4=ch4, total=total, user_id=current_user.id)
-        db.session.add(emissions)
-        db.session.commit()
-        return redirect(url_for('carbon_app.your_data'))
-    return render_template('carbon_app/new_entry_bus.html', title='new entry bus', form=form)
-
-@carbon_app.route('/carbon_app/new_entry/car', methods=['GET', 'POST'])
-@login_required
-def new_entry_car():
-    form = CarForm()
-    if form.validate_on_submit():
-        kms = form.kms.data
-        fuel = form.fuel_type.data
-        transport = 'Car'
-
-        co2 = float(kms) * efco2[transport][fuel]
-        ch4 = float(kms) * efch4[transport][fuel]
-        total = co2 + ch4
-
-        co2 = float("{:.2f}".format(co2))
-        ch4 = float("{:.2f}".format(ch4))
-        total = float("{:.2f}".format(total))
-
-        emissions = Transport(kms=kms, transport=transport, fuel=fuel, co2=co2, ch4=ch4, total=total, user_id=current_user.id)
-        db.session.add(emissions)
-        db.session.commit()
-        return redirect(url_for('carbon_app.your_data'))
-    return render_template('carbon_app/new_entry_car.html', title='New Car Entry', form=form)
+# New-entry form functions - one for each freight transport type
 
 @carbon_app.route('/carbon_app/new_entry/boat', methods=['GET', 'POST'])
 @login_required
@@ -130,26 +62,6 @@ def new_entry_plane():
         return redirect(url_for('carbon_app.your_data'))
     return render_template('carbon_app/new_entry_plane.html', title='New Plane Entry', form=form)
 
-@carbon_app.route('/carbon_app/new_entry/metro', methods=['GET', 'POST'])
-@login_required
-def new_entry_metro():
-    form = MetroForm()
-    if form.validate_on_submit():
-        kms = form.kms.data
-        fuel = form.fuel_type.data
-        transport = 'Metro'
-        co2 = float(kms) * efco2[transport][fuel]
-        ch4 = float(kms) * efch4[transport][fuel]
-        total = co2 + ch4
-        co2 = float("{:.2f}".format(co2))
-        ch4 = float("{:.2f}".format(ch4))
-        total = float("{:.2f}".format(total))
-        emissions = Transport(kms=kms, transport=transport, fuel=fuel, co2=co2, ch4=ch4, total=total, user_id=current_user.id)
-        db.session.add(emissions)
-        db.session.commit()
-        return redirect(url_for('carbon_app.your_data'))
-    return render_template('carbon_app/new_entry_metro.html', title='New Metro Entry', form=form)
-
 @carbon_app.route('/carbon_app/new_entry/truck', methods=['GET', 'POST'])
 @login_required
 def new_entry_truck():
@@ -167,26 +79,6 @@ def new_entry_truck():
         db.session.commit()
         return redirect(url_for('carbon_app.your_data'))
     return render_template('carbon_app/new_entry_truck.html', title='New Truck Entry', form=form)
-
-@carbon_app.route('/carbon_app/new_entry/train', methods=['GET', 'POST'])
-@login_required
-def new_entry_train():
-    form = TrainForm()
-    if form.validate_on_submit():
-        kms = form.kms.data
-        fuel = form.fuel_type.data
-        transport = 'Train'
-        co2 = float(kms) * efco2[transport][fuel]
-        ch4 = float(kms) * efch4[transport][fuel]
-        total = co2 + ch4
-        co2 = float("{:.2f}".format(co2))
-        ch4 = float("{:.2f}".format(ch4))
-        total = float("{:.2f}".format(total))
-        emissions = Transport(kms=kms, transport=transport, fuel=fuel, co2=co2, ch4=ch4, total=total, user_id=current_user.id)
-        db.session.add(emissions)
-        db.session.commit()
-        return redirect(url_for('carbon_app.your_data'))
-    return render_template('carbon_app/new_entry_train.html', title='New Train Entry', form=form)
 
 # Your data
 
