@@ -54,27 +54,3 @@ class Transport(db.Model):
         return (
             f"Transport('{self.transport}', kms={self.kms}, total={self.total}, user_id={self.user_id})"
         )
-
-# Sample data
-def seed_sample_data() -> None:
-    if User.query.first():
-        return
-
-    sample_users = [
-        User(username='Bjørk', email='bjork@example.com', password='seed-password'),
-        User(username='Fjell', email='fjell@example.com', password='seed-password'),
-        User(username='Aurora', email='aurora@example.com', password='seed-password'),
-    ]
-    db.session.add_all(sample_users)
-    db.session.commit()
-
-    transports = [
-        Transport(kms=10, transport='Car', fuel='Petrol', co2=1.8, ch4=0.1, total=1.9, user_id=sample_users[0].id),
-        Transport(kms=15, transport='Bus', fuel='Diesel', co2=1.2, ch4=0.05, total=1.25, user_id=sample_users[0].id),
-        Transport(kms=5, transport='Train', fuel='Electric', co2=0.2, ch4=0.01, total=0.21, user_id=sample_users[1].id),
-        Transport(kms=7, transport='Car', fuel='Hybrid', co2=0.8, ch4=0.02, total=0.82, user_id=sample_users[1].id),
-        Transport(kms=18, transport='Flight', fuel='Jet fuel', co2=6.0, ch4=0.3, total=6.3, user_id=sample_users[2].id),
-    ]
-    db.session.add_all(transports)
-    db.session.commit()
-    

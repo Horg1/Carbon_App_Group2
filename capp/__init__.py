@@ -23,7 +23,6 @@ login_manager = LoginManager(application)
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
-from capp import models  # noqa: E402,F401
 from capp.carbon_app.routes import carbon_app  # noqa: E402
 from capp.home.routes import home  # noqa: E402
 from capp.methodology.routes import methodology  # noqa: E402
@@ -36,4 +35,3 @@ application.register_blueprint(users)
 
 with application.app_context():
     db.create_all()
-    models.seed_sample_data()
