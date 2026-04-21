@@ -2,18 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField, FloatField
 from wtforms.validators import InputRequired
 
-class BusForm(FlaskForm):
-    kms = FloatField('Kilometers', [InputRequired()])
-    fuel_type = SelectField('Type of Fuel', [InputRequired()],
-                            choices=[('Petrol', 'Petrol'), ('Diesel', 'Diesel'), ('No Fossil Fuel', 'No Fossil Fuel')])
-    submit = SubmitField('Submit')
-
-class CarForm(FlaskForm):
-    kms = FloatField('Kilometers', [InputRequired()])
-    fuel_type = SelectField('Type of Fuel', [InputRequired()],
-                            choices=[('Petrol', 'Petrol'), ('Diesel', 'Diesel'), ('No Fossil Fuel', 'No Fossil Fuel')])
-    submit = SubmitField('Submit')
-
 class BoatForm(FlaskForm):
     kms = FloatField('Kilometers', [InputRequired()])
     seafood_kg = FloatField('Cargo Weight (kg)', [InputRequired()])
@@ -26,18 +14,6 @@ class PlaneForm(FlaskForm):
     seafood_kg = FloatField('Cargo Weight (kg)', [InputRequired()])
     fuel_type = SelectField('Type of Fuel', [InputRequired()],
                             choices=[('Jet Fuel', 'Jet Fuel (Kerosene)'), ('SAF', 'SAF (Sustainable Aviation Fuel)')])
-    submit = SubmitField('Submit')
-
-class MetroForm(FlaskForm):
-    kms = FloatField('Kilometers', [InputRequired()])
-    fuel_type = SelectField('Type of Fuel', [InputRequired()],
-                            choices=[('No Fossil Fuel', 'No Fossil Fuel')])
-    submit = SubmitField('Submit')
-
-class TrainForm(FlaskForm):
-    kms = FloatField('Kilometers', [InputRequired()])
-    fuel_type = SelectField('Type of Fuel', [InputRequired()],
-                            choices=[('Diesel', 'Diesel'), ('No Fossil Fuel', 'No Fossil Fuel')])
     submit = SubmitField('Submit')
 
 class TruckForm(FlaskForm):
