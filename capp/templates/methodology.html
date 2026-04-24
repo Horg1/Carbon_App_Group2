@@ -17,8 +17,8 @@
   <div class="container">
 
     <!-- Intro -->
-    <div class="meth-intro">
-      <p>
+    <div class="meth-intro" style="text-align: center;">
+      <p class="intro-text">
         This page explains the logic behind our seafood transport emission calculator in a
         transparent and simplified way. We combine route distance, cargo weight, and
         freight emission factors from the GLEC framework to estimate total CO₂e emissions
@@ -28,6 +28,8 @@
         The detailed methodology is available in our report, while this page
         highlights the formulas and baseline values used in the app itself.
       </p>
+      <div class="hero-buttons" style="margin-top:24px; justify-content:center;">
+        <a href="#link to paper" class="btn-nav">Paper</a>
       <div class="hero-buttons" style="margin-top:24px; justify-content:flex-start;">
         <a href="{{ url_for('static', filename='Paper-For19.pdf') }}" class="btn-nav" target="_blank">Paper</a>
         <a href="{{ url_for('carbon_app.carbon_app_home') }}" class="btn-nav">Carbon App</a>

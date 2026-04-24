@@ -137,7 +137,7 @@ p { margin: 10px 0; font-size: 18px; color: var(--text); }
 
 .team-intro { margin-bottom: 36px; }
 .team-intro h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; }
-.team-intro p { font-size: 15px; color: var(--muted); }
+.team-intro p { font-size: 19px; color: var(--muted); }
 
 .team-grid {
   display: grid;
@@ -164,12 +164,12 @@ p { margin: 10px 0; font-size: 18px; color: var(--text); }
   box-shadow: 0 16px 34px rgba(15, 35, 30, 0.12);
 }
 
-.team-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 0; }
-.team-card p { font-size: 13px; color: var(--muted); margin: 0; }
+.team-card h3 { font-size: 18px; font-weight: 600; color: var(--text); margin: 0; }
+.team-card p { font-size: 15px; color: var(--muted); margin: 0; }
 
 .team-photo {
-  width: 100px;
-  height: 100px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--border);
