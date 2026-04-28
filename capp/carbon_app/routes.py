@@ -111,6 +111,7 @@ def your_data():
     if 'Ferry' in second_tuple_elements:
         index_ferry = second_tuple_elements.index('Ferry')
         emission_transport[2]=first_tuple_elements[index_ferry]
+    
     # Emissions by date (individual)
     date_col = db.func.date(Transport.date)
     emissions_by_date = db.session.query(db.func.sum(Transport.total), date_col). \
