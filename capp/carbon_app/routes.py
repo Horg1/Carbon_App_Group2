@@ -42,6 +42,10 @@ def new_entry_boat():
         db.session.add(emissions)
         db.session.commit()
         return redirect(url_for('carbon_app.your_data'))
+    elif request.method == 'POST':
+        for field in form:
+            for error in field.errors:
+                flash(f'{field.label.text}: {error}', 'danger')
     return render_template('carbon_app/new_entry_boat.html', title='New Boat Entry', form=form)
 
 @carbon_app.route('/carbon_app/new_entry/plane', methods=['GET', 'POST'])
@@ -60,6 +64,10 @@ def new_entry_plane():
         db.session.add(emissions)
         db.session.commit()
         return redirect(url_for('carbon_app.your_data'))
+    elif request.method == 'POST':
+        for field in form:
+            for error in field.errors:
+                flash(f'{field.label.text}: {error}', 'danger')
     return render_template('carbon_app/new_entry_plane.html', title='New Plane Entry', form=form)
 
 @carbon_app.route('/carbon_app/new_entry/truck', methods=['GET', 'POST'])
@@ -78,6 +86,10 @@ def new_entry_truck():
         db.session.add(emissions)
         db.session.commit()
         return redirect(url_for('carbon_app.your_data'))
+    elif request.method == 'POST':
+        for field in form:
+            for error in field.errors:
+                flash(f'{field.label.text}: {error}', 'danger')
     return render_template('carbon_app/new_entry_truck.html', title='New Truck Entry', form=form)
 
 # Your data
